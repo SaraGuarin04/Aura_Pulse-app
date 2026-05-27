@@ -7,8 +7,8 @@ import { DatePipe, CommonModule } from '@angular/common';
   selector: 'app-actions',
   standalone: true,
   imports: [CommonModule, DatePipe], 
-  templateUrl: './actions.component.html',
-  styleUrls: ['./actions.component.css']
+  templateUrl: './action.html',
+  styleUrls: ['./action.css']
 })
 export class ActionsComponent implements OnInit {
 
