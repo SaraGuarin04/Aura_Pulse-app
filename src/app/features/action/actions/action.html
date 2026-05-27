@@ -1,0 +1,38 @@
+<div class="container mt-4">
+  <h2 class="mb-4 text-success">♻️ Mis Acciones Ecológicas</h2>
+
+  <div class="table-responsive">
+    <table class="table table-striped table-hover align-middle">
+      <thead class="table-dark">
+        <tr>
+          <th>Título</th>
+          <th>Categoría</th>
+          <th>Descripción</th>
+          <th>Cantidad / Valor</th>
+          <th>Puntos Aura ✨</th>
+          <th>Fecha de Registro</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let action of actionsList">
+          <td><strong>{{ action.title }}</strong></td>
+          <td>
+            <span class="badge bg-info text-dark">{{ action.category }}</span>
+          </td>
+          <td>{{ action.description || 'Sin descripción' }}</td>
+          <td>{{ action.value }}</td>
+          <td>
+            <span class="text-success fw-bold">+{{ action.auraPoints }} pts</span>
+          </td>
+          <td>{{ action.createdAT | date:'dd/MM/yyyy HH:mm' }}</td>
+        </tr>
+        
+        <tr *ngIf="actionsList.length === 0">
+          <td colspan="6" class="text-center text-muted py-4">
+            No has registrado ninguna acción ecológica todavía. ¡Empieza hoy!
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

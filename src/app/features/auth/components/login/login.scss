@@ -1,0 +1,127 @@
+.login-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #f4fbf7 0%, #e8f5ed 100%); // Fondo suave degradado ecológico
+  padding: 20px;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 32px;
+  box-shadow: 0 12px 35px rgba(30, 126, 52, 0.06); // Sombra sutil con tinte verde
+  text-align: center;
+  border: 1px solid #d4edda; // Borde suave eco
+
+  h1 {
+    margin: 0;
+    font-size: 28px;
+    color: #1e7e34; // Verde oscuro para el título principal
+    font-weight: 700;
+  }
+
+  p {
+    margin: 8px 0 24px;
+    color: #556357; // Gris verdoso para el texto secundario
+    font-size: 15px;
+  }
+}
+
+.tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+  background: #edf4f0; // Fondo de las pestañas más natural
+  padding: 6px;
+  border-radius: 12px;
+}
+
+.tab {
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  color: #718776;
+  transition: all 0.2s ease-in-out;
+
+  &.active {
+    background: #ffffff;
+    color: #28a745; // El verde activo de tu proyecto
+    box-shadow: 0 4px 12px rgba(40, 167, 69, 0.1);
+  }
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  text-align: left;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #3e4d41; // Texto de etiquetas más oscuro y legible
+  }
+
+  input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid #c3d1c7; // Borde del input integrado a la paleta
+    border-radius: 12px;
+    font-size: 15px;
+    outline: none;
+    box-sizing: border-box;
+    transition: all 0.2s ease-in-out;
+
+    &:focus {
+      border-color: #28a745; // Cambio al enfocar el campo a verde ecológico
+      box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.15); // Brillo suave
+    }
+  }
+}
+
+.submit-btn {
+  margin-top: 8px;
+  border: none;
+  background: #28a745; // Botón principal verde brillante eco
+  color: #ffffff;
+  padding: 14px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out, transform 0.1s ease;
+
+  &:hover {
+    background: #218838; // Verde más oscuro al pasar el cursor
+  }
+
+  &:active {
+    transform: scale(0.98); // Pequeño efecto de clic físico
+  }
+}
+
+// Clase extra para tus mensajes de error por si la necesitas en el login
+.error-message {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 12px;
+  border-radius: 12px;
+  font-size: 14px;
+  border: 1px solid #f5c6cb;
+  margin-top: 4px;
+  text-align: center;
+}
