@@ -1,0 +1,35 @@
+.container {
+  max-width: 1200px;
+  padding-bottom: 40px;
+}
+
+.card {
+  border-radius: 16px;
+  background: #ffffff;
+  border: 1px solid rgba(40, 167, 69, 0.15);
+  transition: transform 0.25s ease-in-out, box-shadow 0.25s ease-in-out;
+  overflow: hidden;
+
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 24px rgba(40, 167, 69, 0.08) !important;
+    border-color: rgba(40, 167, 69, 0.3);
+  }
+
+  .card-body {
+    padding: 24px;
+  }
+}
+
+.display-4 {
+  font-size: 3rem;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.05));
+}
+
+.card-footer {
+  font-size: 13px;
+  color: #6c757d;
+  background-color: #f8f9fa;
+  border-top: 1px solid rgba(0, 0, 0, 0.03);
+  border-radius: 0 0 16px 16px;
+}
