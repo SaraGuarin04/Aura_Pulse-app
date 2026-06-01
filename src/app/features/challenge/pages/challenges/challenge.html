@@ -1,0 +1,64 @@
+<div class="container">
+  <div class="navigation-bar">
+    <button routerLink="/dashboard" class="nav-btn btn-home">🏠 Inicio</button>
+    <button routerLink="/actions" class="nav-btn">🌱 Mis Acciones</button>
+    <button routerLink="/challenges" class="nav-btn active">🎯 Desafíos</button>
+    <button routerLink="/achievements" class="nav-btn">🏆 Mis Logros</button>
+  </div>
+
+  <div class="text-center mb-4">
+    <h2>Desafíos Ecológicos Disponibles</h2>
+    <p>Supera misiones especiales y obtén grandes recompensas en puntos Aura.</p>
+    
+    @if (errorMessage()) {
+      <div class="alert alert-danger">{{ errorMessage() }}</div>
+    }
+  </div>
+
+  <div class="challenges-grid">
+    @for (challenge of challengesList(); track challenge._id) {
+      <div class="challenge-card">
+        <div>
+          <span class="badge-status">Disponible</span>
+        </div>
+        <h3>{{ challenge.name }}</h3>
+        <p>{{ challenge.description }}</p>
+        <div class="points-badge">+{{ challenge.pointsReward }} Puntos Aura</div>
+        <small class="text-muted d-block mt-3" style="font-size: 11px; color: #94a3b8;">ID: {{ challenge._id }}</small>
+      </div>
+    } @empty {
+      @if (!errorMessage()) {
+        <div class="text-center py-5 w-100" style="color: #64748b;">
+          <p class="m-0">No hay desafíos disponibles en este momento.</p>
+          <small style="color: #94a3b8;">¡Ya completaste todas las misiones de la semana! Recarga más tarde. ♻️</small>
+        </div>
+      }
+    }
+  </div>
+
+  <div class="management-panel">
+    <h3 class="panel-title">Panel de Control de Datos</h3>
+    
+    <div class="management-grid">
+      <div class="management-card">
+        <h4>Buscar por ID</h4>
+        <input type="text" #searchChId placeholder="Ingresa el ID del desafío" class="form-control">
+        <button (click)="findChallenge(searchChId.value)" class="btn btn-info">Obtener Registro</button>
+      </div>
+
+      <div class="management-card">
+        <h4>Actualizar Desafío</h4>
+        <input type="text" #updateChId placeholder="ID a modificar" class="form-control">
+        <input type="text" #updateChName placeholder="Nuevo nombre" class="form-control">
+        <input type="number" #updateChPoints placeholder="Nuevos puntos" class="form-control">
+        <button (click)="editChallenge(updateChId.value, updateChName.value, updateChPoints.valueAsNumber)" class="btn btn-warning">Aplicar Cambios</button>
+      </div>
+
+      <div class="management-card">
+        <h4>Eliminar Desafío</h4>
+        <input type="text" #deleteChId placeholder="ID a dar de baja" class="form-control">
+        <button (click)="removeChallenge(deleteChId.value)" class="btn btn-danger">Eliminar (DELETE)</button>
+      </div>
+    </div>
+  </div>
+</div>

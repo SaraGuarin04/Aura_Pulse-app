@@ -7,7 +7,7 @@ import { ActionDocument } from '../models/action.model';
   providedIn: 'root'
 })
 export class ActionService {
-  private API_URL = 'https://aura-pulse-dz27.onrender.com/api/v2/auth/login'; 
+  private API_URL = 'https://aura-pulse-dz27.onrender.com/api/v2/actions'; 
   
   private http = inject(HttpClient);
 

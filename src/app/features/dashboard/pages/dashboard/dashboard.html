@@ -1,0 +1,34 @@
+<div class="dashboard-container">
+  <div class="dashboard-header">
+    <div class="brand-logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" />
+      </svg>
+    </div>
+    <h2>Panel de Control Aura Pulse</h2>
+    <p class="text-muted">Selecciona la sección que deseas gestionar o revisar</p>
+  </div>
+
+  <div class="menu-grid">
+    <div class="menu-card border-action" (click)="navigateTo('/actions')">
+      <div class="card-icon icon-action">🌱</div>
+      <h3>Mis Acciones</h3>
+      <p>Registra y visualiza el impacto ecológico de tus actividades diarias.</p>
+      <button class="btn btn-action">Ver Acciones</button>
+    </div>
+
+    <div class="menu-card border-challenge" (click)="navigateTo('/challenges')">
+      <div class="card-icon icon-challenge">🎯</div>
+      <h3>Desafíos</h3>
+      <p>Supera misiones especiales y obtén grandes recompensas en puntos Aura.</p>
+      <button class="btn btn-challenge">Ver Desafíos</button>
+    </div>
+
+    <div class="menu-card border-achievement" (click)="navigateTo('/achievements')">
+      <div class="card-icon icon-achievement">🏆</div>
+      <h3>Mis Logros</h3>
+      <p>Revisa las medallas y reconocimientos que has desbloqueado.</p>
+      <button class="btn btn-achievement">Ver Medallas</button>
+    </div>
+  </div>
+</div>

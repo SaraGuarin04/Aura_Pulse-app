@@ -8,7 +8,7 @@ import { Achievement } from '../models/achiements.model';
 })
 export class AchievementsService {
   private readonly http = inject(HttpClient);
-  private readonly apiUrl = 'https://aura-pulse-dz27.onrender.com/api/v2/achievements'; 
+  private readonly apiUrl = 'https://aura-pulse-dz27.onrender.com/api/v2/achievements/my'; 
 
   getAchievements(): Observable<Achievement[]> {
     return this.http.get<Achievement[]>(this.apiUrl);

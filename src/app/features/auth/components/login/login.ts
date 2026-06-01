@@ -3,6 +3,8 @@ import { FormsModule } from '@angular/forms';
 import { AuthService } from "../../services/auth";
 import { LoginRequest } from '../../models/auth';
 import { emailError } from '@angular/forms/signals';
+import { Router } from '@angular/router';
+import { Session } from '../../../../shared/services/session';
 
 @Component({
   selector: 'login',
@@ -13,6 +15,8 @@ import { emailError } from '@angular/forms/signals';
 export class Login {
 
   private _AuthService = inject(AuthService);
+   private _sessionService = inject(Session);
+  private router = inject(Router);
 
   user = '';
   password = '';
@@ -27,7 +31,8 @@ export class Login {
     }
     this._AuthService.login(body).subscribe({
       next: (res)=>{
-        console.log(res)
+        this._sessionService.setToken(res.token);
+        this.router.navigate(['/dashboard'])
       },
       error:(err)=>{
         this.error = err.error.message

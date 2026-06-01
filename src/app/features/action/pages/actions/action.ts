@@ -1,13 +1,13 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { ActionService } from '../services/action';
-import { ActionDocument } from '../models/action.model';
+import { ActionService } from '../../services/action';
+import { ActionDocument } from '../../models/action.model';
 import { DatePipe, CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-actions',
   standalone: true,
   imports: [CommonModule, DatePipe], 
-  templateUrl: './action.html',
+  templateUrl: './action.html', 
   styleUrls: ['./action.css']
 })
 export class ActionsComponent implements OnInit {
