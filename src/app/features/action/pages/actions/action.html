@@ -54,6 +54,24 @@
       <h3 class="panel-section-title">Panel de Control de Datos</h3>
 
       <div class="management-cards-flex">
+
+        <div class="management-card">
+          <h4>Registrar Nueva Acción</h4>
+          <div class="card-inputs">
+            <input [(ngModel)]="newAction.title" type="text" placeholder="Título" class="form-control">
+            <select [(ngModel)]="newAction.category" class="form-control">
+              <option value="" disabled selected>Selecciona una categoría</option>
+              <option value="Reciclaje">Reciclaje</option>
+              <option value="Transporte">Transporte</option>
+              <option value="Energia">Energía</option>
+              <option value="Agua">Agua</option>
+              <option value="Otro">Otro</option>
+            </select>
+            <input [(ngModel)]="newAction.description" type="text" placeholder="Descripción" class="form-control">
+            <input [(ngModel)]="newAction.value" type="number" placeholder="Cantidad de puntos" class="form-control">
+          </div>
+          <button (click)="createAction()" class="btn" style="background-color: #28a745;">Guardar Registro</button>
+        </div>
         
         <div class="management-card">
           <h4>Buscar Acción por ID</h4>

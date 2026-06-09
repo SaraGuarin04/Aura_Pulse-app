@@ -57,7 +57,7 @@ export class AchievementsComponent implements OnInit {
     this.achievementsService.updateAchievement(id, updatedData).subscribe({
       next: () => {
         this.errorMessage.set(null);
-        this.loadInitialData(); // 🔥 Recarga la lista principal automáticamente
+        this.loadInitialData(); 
         this.searchedAchievement.set(null);
         alert('¡Logro actualizado con éxito!');
       },
