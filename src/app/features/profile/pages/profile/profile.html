@@ -1,0 +1,44 @@
+<div class="page-wrapper">
+  <div class="container">
+    <div class="navigation-bar-container">
+      <div class="navigation-bar">
+        <button class="nav-btn" (click)="navigateTo('/dashboard')">🏠 Inicio</button>
+      </div>
+    </div>
+
+    <h1 class="main-title">Perfil de Usuario</h1>
+    <p class="subtitle">Gestiona tu información y seguridad de cuenta.</p>
+
+    <div class="white-management-container">
+      <div class="management-cards-flex">
+        
+        <div class="management-card">
+          <h4>Información Personal</h4>
+          <div class="card-inputs" style="text-align: left; padding: 10px;">
+            @if (profile(); as user) {
+              <p><strong>Nombre:</strong> {{ user.name }}</p>
+              <p><strong>Email:</strong> {{ user.email }}</p>
+              <p><strong>Rol:</strong> {{ user.role }}</p>
+            }
+          </div>
+        </div>
+
+        <div class="management-card">
+          <h4>Seguridad</h4>
+          <div class="card-inputs">
+            <input type="password" [(ngModel)]="currentPassword" placeholder="Contraseña actual" class="form-control">
+            <input type="password" [(ngModel)]="newPassword" placeholder="Nueva contraseña" class="form-control">
+          </div>
+          <button class="btn" style="background-color: #28a745;" (click)="updatePassword()">Actualizar Clave</button>
+        </div>
+
+        <div class="management-card">
+          <h4>Zona de Peligro</h4>
+          <p class="description-text">Acciones permanentes sobre tu cuenta.</p>
+          <button class="btn btn-danger" (click)="deleteAccount()">Eliminar Cuenta</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

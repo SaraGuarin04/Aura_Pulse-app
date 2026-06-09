@@ -8,27 +8,35 @@
             </svg>
         </div>
 
-        <h1>Bienvenido</h1>
-        <p>Ingresa o crea tu cuenta</p>
+        <h1>{{ isLoginMode ? 'Bienvenido' : 'Crear Cuenta' }}</h1>
+        <p>{{ isLoginMode ? 'Ingresa a tu cuenta' : 'Regístrate para comenzar' }}</p>
 
         <div class="tabs">
-            <button class="tab active">Login</button>
-            <button class="tab">Registro</button>
+            <button class="tab" [class.active]="isLoginMode" (click)="isLoginMode = true">Login</button>
+            <button class="tab" [class.active]="!isLoginMode" (click)="isLoginMode = false">Registro</button>
         </div>
 
-        <form class="auth-form">
+        <form class="auth-form" (submit)="$event.preventDefault()">
+            
+            @if (!isLoginMode) {
+                <div class="form-group">
+                    <label for="name">Nombre</label>
+                    <input [(ngModel)]="name" id="name" type="text" placeholder="Ingresa tu nombre" name="name" />
+                </div>
+            }
+
             <div class="form-group">
-                <label for="name">Usuario</label>
-                <input [(ngModel)]="user" id="user" type="text" placeholder="Ingresa tu usuario" name="user" />
+                <label for="user">Correo electrónico</label>
+                <input [(ngModel)]="user" id="user" type="email" placeholder="Ingresa tu correo" name="user" />
             </div>
 
             <div class="form-group">
-                <label for="email">Password {{error}}</label>
-                <input [(ngModel)]="password" id="password" type="password" placeholder="Ingresa tu contraseña"
-                    name="password" />
+                <label for="password">Password {{error}}</label>
+                <input [(ngModel)]="password" id="password" type="password" placeholder="Ingresa tu contraseña" name="password" />
             </div>
-            <button type="submit" class="submit-btn" (click)="sendLogin()">
-                Ingresar
+
+            <button type="submit" class="submit-btn" (click)="handleSubmit()">
+                {{ isLoginMode ? 'Ingresar' : 'Registrarse' }}
             </button>
         </form>
     </div>

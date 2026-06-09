@@ -13,5 +13,17 @@ export class AchievementsService {
   getAchievements(): Observable<Achievement[]> {
     return this.http.get<Achievement[]>(this.apiUrl);
   }
+
+  getAchievementById(id: string): Observable<Achievement> {
+    return this.http.get<Achievement>(`${this.apiUrl}/${id}`);
+  }
+
+  updateAchievement(id: string, data: { name: string, description: string }): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/${id}`, data);
+  }
+
+  deleteAchievement(id: string): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/${id}`);
+  }
 }
 

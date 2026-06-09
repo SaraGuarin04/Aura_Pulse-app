@@ -1,58 +1,129 @@
-.dashboard-container {
-  max-width: 1000px;
-  margin: 0 auto;
+.dashboard-page-wrapper {
+  background-color: #edf7f4; 
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 40px 20px;
-  text-align: center;
-  font-family: system-ui, -apple-system, sans-serif;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 }
 
+.dashboard-container {
+  max-width: 1150px;
+  width: 100%;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 28px;
+  padding: 50px 40px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.03);
+  box-sizing: border-box;
+}
+
+/* Header: Contenedor flex para alinear los botones a la derecha */
 .dashboard-header {
-  margin-bottom: 40px;
+  position: relative;
+  margin-bottom: 45px;
+  text-align: center;
+}
+
+/* Nuevo contenedor para el grupo de botones superior */
+.header-actions {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  gap: 10px;
+}
+
+/* Estilo del botón de Perfil */
+.btn-profile {
+  background-color: #f1f5f9;
+  color: #475569;
+  border: 1px solid #e2e8f0;
+  padding: 8px 12px;
+  border-radius: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.btn-profile:hover {
+  background-color: #e2e8f0;
+  color: #1e293b;
+}
+
+/* Estilo del botón de Cerrar Sesión */
+.btn-logout {
+  background-color: #fff1f2;
+  color: #e53e3e;
+  border: 1px solid #feb2b2;
+  padding: 8px 18px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-logout:hover {
+  background-color: #e53e3e;
+  color: white;
 }
 
 .brand-logo svg {
-  width: 45px;
-  height: 45px;
-  color: #4ade80; 
-  margin-bottom: 10px;
+  width: 50px;
+  height: 50px;
+  color: #28a745; 
+  margin-bottom: 12px;
 }
 
 .dashboard-header h2 {
   color: #1e7e34;
+  font-size: 30px;
   font-weight: 700;
+  letter-spacing: -0.5px;
   margin: 0 0 8px 0;
+}
+
+.dashboard-header p {
+  color: #64748b;
+  font-size: 15px;
+  margin: 0;
 }
 
 .menu-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 24px;
-  margin-top: 20px;
 }
 
 .menu-card {
   background: #ffffff;
-  border-radius: 16px;
-  padding: 30px 24px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  border: 1px solid #f1f5f9;
+  border-radius: 20px;
+  padding: 35px 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.01);
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 1px solid #e2e8f0;
 }
 
 .menu-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 12px 30px rgba(30, 126, 52, 0.08);
+  border-color: #cbd5e1;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.04);
 }
 
 .card-icon {
-  font-size: 40px;
-  margin-bottom: 16px;
-  width: 70px;
-  height: 70px;
+  font-size: 24px;
+  margin-bottom: 20px;
+  width: 65px;
+  height: 65px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -61,27 +132,44 @@
 
 .menu-card h3 {
   margin: 0 0 10px 0;
-  color: #2d3748;
+  color: #1e293b;
   font-size: 20px;
+  font-weight: 600;
 }
 
 .menu-card p {
-  color: #718096;
+  color: #64748b;
   font-size: 14px;
   line-height: 1.5;
   margin: 0 0 24px 0;
+  text-align: center;
   flex-grow: 1;
 }
 
-/* Variaciones por sección */
+.btn-action, .btn-challenge, .btn-achievement {
+  border: none;
+  padding: 13px 20px;
+  border-radius: 14px;
+  font-weight: 600;
+  font-size: 14px;
+  width: 100%;
+  cursor: pointer;
+  color: white;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn-action:active, .btn-challenge:active, .btn-achievement:active {
+  transform: scale(0.98);
+}
+
 .icon-action { background-color: #e6f4ea; }
-.btn-action { background-color: #28a745; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; width: 100%; cursor: pointer;}
+.btn-action { background-color: #28a745; }
 .btn-action:hover { background-color: #218838; }
 
-.icon-challenge { background-color: #feebd0; }
-.btn-challenge { background-color: #f39c12; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; width: 100%; cursor: pointer;}
+.icon-challenge { background-color: #fff7ed; }
+.btn-challenge { background-color: #f39c12; }
 .btn-challenge:hover { background-color: #d68910; }
 
 .icon-achievement { background-color: #eaf2f8; }
-.btn-achievement { background-color: #2980b9; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; width: 100%; cursor: pointer;}
+.btn-achievement { background-color: #2980b9; }
 .btn-achievement:hover { background-color: #2471a3; }

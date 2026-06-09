@@ -1,61 +1,99 @@
-<div class="container">
-  <div class="navigation-bar">
-    <button routerLink="/dashboard" class="nav-btn btn-home">🏠 Inicio</button>
-    <button routerLink="/actions" class="nav-btn">🌱 Mis Acciones</button>
-    <button routerLink="/challenges" class="nav-btn">🎯 Desafíos</button>
-    <button routerLink="/achievements" class="nav-btn active">🏆 Mis Logros</button>
-  </div>
-
-  <div class="text-center mb-4">
-    <h2>Mis Medallas y Reconocimientos</h2>
-    <p>Revisa los insignias ecológicas que has desbloqueado en tu cuenta.</p>
+<div class="page-wrapper">
+  <div class="container">
     
-    @if (errorMessage()) {
-      <div class="alert alert-danger">{{ errorMessage() }}</div>
-    }
-  </div>
-
-  <div class="achievements-container">
-    @for (achievement of achievementsList(); track achievement._id) {
-      <div class="achievement-card">
-        <div style="font-size: 28px;">🏆</div>
-        <h3>{{ achievement.name }}</h3>
-        <p>{{ achievement.description }}</p>
-        <small class="text-muted d-block mt-2" style="font-size: 11px; color: #94a3b8;">ID: {{ achievement._id }}</small>
-      </div>
-    } @empty {
-      @if (!errorMessage()) {
-        <div class="text-center py-5 w-100" style="color: #64748b;">
-          <p class="m-0">Aún no has desbloqueado ninguna medalla ambiental.</p>
-          <small style="color: #94a3b8;">¡Completa retos del panel para conseguir insignias! 🏅</small>
-        </div>
-      }
-    }
-  </div>
-
-  <div class="management-panel">
-    <h3 class="panel-title">Panel de Control de Datos</h3>
-    
-    <div class="management-grid">
-      <div class="management-card">
-        <h4>Buscar por ID</h4>
-        <input type="text" #searchId placeholder="Ingresa el ID del logro" class="form-control">
-        <button (click)="findAchievement(searchId.value)" class="btn btn-info">Obtener Registro</button>
-      </div>
-
-      <div class="management-card">
-        <h4>Actualizar Logro</h4>
-        <input type="text" #updateId placeholder="ID a modificar" class="form-control">
-        <input type="text" #updateName placeholder="Nuevo nombre" class="form-control">
-        <input type="text" #updateDesc placeholder="Nueva descripción" class="form-control">
-        <button (click)="editAchievement(updateId.value, updateName.value, updateDesc.value)" class="btn btn-warning">Aplicar Cambios</button>
-      </div>
-
-      <div class="management-card">
-        <h4>Eliminar Logro</h4>
-        <input type="text" #deleteId placeholder="ID a dar de baja" class="form-control">
-        <button (click)="removeAchievement(deleteId.value)" class="btn btn-danger">Eliminar (DELETE)</button>
+    <div class="navigation-bar-container">
+      <div class="navigation-bar">
+        <button routerLink="/dashboard" class="nav-btn">🏠 Inicio</button>
+        <button routerLink="/actions" class="nav-btn">🌱 Mis Acciones</button>
+        <button routerLink="/challenges" class="nav-btn">🎯 Desafíos</button>
+        <button routerLink="/achievements" class="nav-btn active">🏆 Mis Logros</button>
       </div>
     </div>
+
+    <div class="text-center mb-4">
+      <h2 class="main-title">Mis Logros Obtenidos</h2>
+      <p class="subtitle">Colecciona medallas insignias por tu compromiso y constancia con el medio ambiente.</p>
+      
+      @if (errorMessage()) {
+        <div class="alert alert-danger">{{ errorMessage() }}</div>
+      }
+    </div>
+
+    @if (searchedAchievement()) {
+      <div class="search-result-container text-center mb-4">
+        <p class="search-result-title">🔍 Logro Consultado Individualmente:</p>
+        <div class="achievement-card selected-search-card">
+          <div>
+            <span class="badge-status">Resultado de Búsqueda</span>
+          </div>
+          <h3>{{ searchedAchievement()?.icon || '🏆' }} {{ searchedAchievement()?.name }}</h3>
+          <p class="description-text">{{ searchedAchievement()?.description }}</p>
+          
+          <div class="card-footer">
+            <small class="text-muted">ID: {{ searchedAchievement()?._id }}</small>
+            <button (click)="searchedAchievement.set(null)" class="btn-clear-search">❌ Cerrar Consulta</button>
+          </div>
+        </div>
+      </div>
+    }
+
+    <div class="achievements-grid">
+      @for (achievement of achievementsList(); track achievement._id) {
+        <div class="achievement-card">
+          <div>
+            <span class="badge-status">Desbloqueado</span>
+          </div>
+          <h3>{{ achievement.icon || '🏆' }} {{ achievement.name }}</h3>
+          <p class="description-text">{{ achievement.description }}</p>
+          
+          <div class="card-footer">
+            <small class="text-muted">Obtenido: {{ achievement.unlockedAt | date:'dd/MM/yyyy' }}</small>
+            <small class="text-muted dynamic-id">ID: {{ achievement._id }}</small>
+          </div>
+        </div>
+      } @empty {
+        @if (!errorMessage()) {
+          <div class="empty-state">
+            <p>Aún no posees insignias en tu vitrina de logros.</p>
+            <small>¡Completa más desafíos y registra acciones para ganar reconocimientos! 🏆</small>
+          </div>
+        }
+      }
+    </div>
+
+    <div class="white-management-container">
+      <h3 class="panel-section-title">Panel de Control de Datos</h3>
+
+      <div class="management-cards-flex">
+        
+        <div class="management-card">
+          <h4>Buscar Logro por ID</h4>
+          <div class="card-inputs">
+            <input type="text" #searchAcId placeholder="ID del logro a consultar" class="form-control">
+          </div>
+          <button (click)="findAchievement(searchAcId.value)" class="btn btn-primary">Obtener Registro</button>
+        </div>
+
+        <div class="management-card">
+          <h4>Actualizar Logro</h4>
+          <div class="card-inputs">
+            <input type="text" #updateAcId placeholder="ID del logro a modificar" class="form-control">
+            <input type="text" #updateAcTitle placeholder="Nuevo nombre (name)" class="form-control">
+            <input type="text" #updateAcDesc placeholder="Nueva descripción" class="form-control">
+          </div>
+          <button (click)="editAchievement(updateAcId.value, updateAcTitle.value, updateAcDesc.value)" class="btn btn-warning">Aplicar Cambios</button>
+        </div>
+
+        <div class="management-card">
+          <h4>Eliminar Logro</h4>
+          <div class="card-inputs">
+            <input type="text" #deleteAcId placeholder="ID a remover de la vitrina" class="form-control">
+          </div>
+          <button (click)="removeAchievement(deleteAcId.value); deleteAcId.value=''" class="btn btn-danger">Eliminar Registro</button>
+        </div>
+
+      </div>
+    </div>
+
   </div>
 </div>

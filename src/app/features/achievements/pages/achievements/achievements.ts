@@ -15,6 +15,7 @@ export class AchievementsComponent implements OnInit {
   private readonly achievementsService = inject(AchievementsService);
   
   protected readonly achievementsList = signal<Achievement[]>([]);
+  protected readonly searchedAchievement = signal<Achievement | null>(null); // 🔥 Para guardar el logro buscado
   protected readonly errorMessage = signal<string | null>(null);
 
   ngOnInit(): void {
@@ -30,28 +31,56 @@ export class AchievementsComponent implements OnInit {
 
   protected findAchievement(id: string): void {
     if (!id.trim()) {
-      alert('Por favor, ingresa un ID válido.');
+      this.errorMessage.set('Por favor, ingresa un ID válido.');
       return;
     }
-    alert(`Buscando de forma específica el logro con ID: ${id} en el servidor...`);
+
+    this.achievementsService.getAchievementById(id).subscribe({
+      next: (data) => {
+        this.searchedAchievement.set(data);
+        this.errorMessage.set(null);
+      },
+      error: () => {
+        this.searchedAchievement.set(null);
+        this.errorMessage.set('No se encontró ningún logro con ese ID.');
+      }
+    });
   }
 
   protected editAchievement(id: string, name: string, description: string): void {
     if (!id.trim() || !name.trim() || !description.trim()) {
-      alert('Todos los campos (ID, Nuevo nombre y Nueva descripción) son obligatorios.');
+      this.errorMessage.set('Todos los campos son obligatorios para actualizar.');
       return;
     }
-    alert(`Enviando actualización (PUT) para el logro con ID: ${id}\nNuevo Nombre: ${name}\nNueva Descripción: ${description}`);
+
+    const updatedData = { name, description };
+    this.achievementsService.updateAchievement(id, updatedData).subscribe({
+      next: () => {
+        this.errorMessage.set(null);
+        this.loadInitialData(); // 🔥 Recarga la lista principal automáticamente
+        this.searchedAchievement.set(null);
+        alert('¡Logro actualizado con éxito!');
+      },
+      error: () => this.errorMessage.set('Error al intentar actualizar el logro.')
+    });
   }
 
   protected removeAchievement(id: string): void {
     if (!id.trim()) {
-      alert('Por favor, ingresa el ID del logro que deseas eliminar.');
+      this.errorMessage.set('Por favor, ingresa el ID del logro que deseas eliminar.');
       return;
     }
     
     if (confirm('¿Estás completamente segura de que deseas eliminar este logro de forma permanente?')) {
-      alert(`Enviando petición de borrado (DELETE) al servidor para el ID: ${id}`);
+      this.achievementsService.deleteAchievement(id).subscribe({
+        next: () => {
+          this.errorMessage.set(null);
+          this.loadInitialData(); 
+          this.searchedAchievement.set(null);
+          alert('Logro eliminado correctamente.');
+        },
+        error: () => this.errorMessage.set('Error al intentar eliminar el logro.')
+      });
     }
   }
 }

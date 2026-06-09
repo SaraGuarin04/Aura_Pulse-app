@@ -13,5 +13,21 @@ export class ChallengeService {
   getChallenges(): Observable<Challenge[]> {
     return this.http.get<Challenge[]>(this.apiUrl);
   }
-}
 
+
+  postChallenge(data: Partial<Challenge>): Observable<any> {
+    return this.http.post<any>(this.apiUrl, data);
+  }
+
+  updateChallenge(
+    id: string, 
+    data: { title: string; description: string; points: number; difficulty: string }
+  ): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/${id}`, data);
+  }
+
+
+  deleteChallenge(id: string): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/${id}`);
+  }
+}

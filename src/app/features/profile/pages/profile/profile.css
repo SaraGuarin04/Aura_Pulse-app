@@ -1,0 +1,43 @@
+.page-wrapper {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f4fbf7 0%, #eef9f3 100%);
+  padding: 30px 20px;
+  font-family: sans-serif;
+}
+
+.container { max-width: 1140px; margin: 0 auto; }
+
+.navigation-bar-container { display: flex; justify-content: center; margin-bottom: 35px; }
+.navigation-bar { display: flex; background: white; padding: 6px; border-radius: 30px; box-shadow: 0 2px 10px rgba(0,0,0,0.04); border: 1px solid #e2ece7; }
+.nav-btn { background: none; border: none; padding: 8px 20px; border-radius: 20px; font-weight: 500; color: #556b60; cursor: pointer; }
+
+.main-title { color: #1e7e34; font-size: 1.85rem; font-weight: 700; text-align: center; margin-bottom: 6px; }
+.subtitle { color: #617d6f; font-size: 0.95rem; margin-bottom: 30px; text-align: center; }
+
+.white-management-container {
+  background: white;
+  border-radius: 20px;
+  padding: 35px 25px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.02);
+  border: 1px solid #e2ece7;
+}
+
+.management-cards-flex { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
+
+.management-card {
+  background: #f8faf9;
+  border-radius: 14px;
+  padding: 20px;
+  border: 1px solid #ebf2ee;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 320px;
+  min-height: 250px;
+}
+
+.management-card h4 { color: #1e7e34; font-weight: 700; margin-bottom: 16px; text-align: center; }
+.form-control { background: white; border: 1px solid #dbe7e1; border-radius: 8px; padding: 10px; margin-bottom: 10px; }
+.btn { border: none; border-radius: 8px; padding: 11px; color: white; font-weight: 600; cursor: pointer; }
+.btn-danger { background-color: #dc3545; }
+.description-text { font-size: 0.85rem; color: #52635a; text-align: center; }

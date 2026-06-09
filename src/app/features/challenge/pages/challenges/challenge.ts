@@ -1,13 +1,13 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router'; // 🔥 1. IMPORTAMOS ROUTERLINK PARA LOS SUBBOTONES
+import { RouterLink } from '@angular/router'; 
 import { ChallengeService } from '../../services/challenge';
 import { Challenge } from '../../models/challenge.model';
 
 @Component({
   selector: 'app-challenge',
   standalone: true,
-  imports: [CommonModule, RouterLink], // 🔥 2. REGISTRAMOS ROUTERLINK AQUÍ
+  imports: [CommonModule, RouterLink], 
   templateUrl: './challenge.html',
   styleUrl: './challenge.css'
 })
@@ -28,32 +28,69 @@ export class ChallengeComponent implements OnInit {
     });
   }
 
-  protected findChallenge(id: string): void {
-    if (!id.trim()) {
-      alert('Por favor, ingresa un ID válido de desafío.');
+  protected createChallenge(name: string, description: string, pointsReward: number, difficulty: string): void {
+    if (!name.trim() || !description.trim() || isNaN(pointsReward) || !difficulty.trim()) {
+      this.errorMessage.set('Todos los campos son obligatorios para crear el reto.');
       return;
     }
-    alert(`Pidiendo al servidor los detalles específicos del reto con ID: ${id}`);
+
+    const typedDifficulty = difficulty as 'Easy' | 'Medium' | 'Hard';
+
+    const newChallenge: Partial<Challenge> = { 
+      name, 
+      description, 
+      pointsReward, 
+      difficulty: typedDifficulty
+    };
+
+    this.challengeService.postChallenge(newChallenge).subscribe({
+      next: () => {
+        this.errorMessage.set(null);
+        this.loadInitialData();
+        alert('¡Desafío guardado exitosamente en el servidor!');
+      },
+      error: () => this.errorMessage.set('Error en el servidor al intentar registrar el desafío.')
+    });
   }
 
-  protected editChallenge(id: string, title: string, points: number): void {
-    if (!id.trim() || !title.trim() || isNaN(points)) {
-      alert('Todos los campos (ID, Nuevo título y Nuevos puntos) son requeridos para actualizar.');
+  protected editChallenge(id: string, title: string, description: string, points: number, difficulty: string): void {
+    if (!id.trim() || !title.trim() || !description.trim() || isNaN(points) || !difficulty.trim()) {
+      this.errorMessage.set('Todos los campos son requeridos para actualizar el desafío.');
       return;
     }
-    alert(`Enviando cambios del desafío ID: ${id} al backend mediante PUT\nNuevo Título: ${title}\nPuntos Actualizados: ${points}`);
 
+    const updatedData = { 
+      title: title.trim(), 
+      description: description.trim(), 
+      points: points, 
+      difficulty: difficulty.toLowerCase() 
+    };
+
+    this.challengeService.updateChallenge(id, updatedData).subscribe({
+      next: () => {
+        this.errorMessage.set(null);
+        this.loadInitialData(); 
+        alert('¡Desafío actualizado con éxito!');
+      },
+      error: () => this.errorMessage.set('Error al intentar actualizar el desafío en el servidor.')
+    });
   }
 
   protected removeChallenge(id: string): void {
     if (!id.trim()) {
-      alert('Por favor, ingresa el ID del desafío que deseas eliminar.');
+      this.errorMessage.set('Por favor, ingresa el ID del desafío que deseas eliminar.');
       return;
     }
     
     if (confirm('¿Estás completamente segura de que deseas dar de baja este desafío ecológico?')) {
-      alert(`Enviando orden de eliminación al servidor para el ID: ${id}`);
-
+      this.challengeService.deleteChallenge(id).subscribe({
+        next: () => {
+          this.errorMessage.set(null);
+          this.loadInitialData(); 
+          alert('Desafío eliminado correctamente.');
+        },
+        error: () => this.errorMessage.set('Error al intentar eliminar el desafío.')
+      });
     }
   }
 }
